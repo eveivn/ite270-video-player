@@ -1,0 +1,144 @@
+:root{
+--bg:#030f1a; --ink:#e2e8f0; --ink-2:#c1cbda;
+--panel:#28385f; --panel-2:#0b162f; --border:#07235b; --accent:#a5c1e0; --buttons: #081224; --bg-color: #020219;
+}
+body[data-theme="pink"]{
+     --accent:#ffd5ea; 
+     --panel:#ff95c3; 
+     --panel-2:#0f85bc; 
+     --border:#6d7c95; 
+     --buttons: #e099ba;
+     --bg-color: #999ac8;
+     --ink-2: #feffff;
+}
+body[data-theme="solar"]{ 
+    --accent:#f59e0b; 
+    --panel:#ca8c21; 
+    --panel-2:#781607; 
+    --border:#4a1d0e; 
+    --buttons: #5f0909;
+    --bg-color: #000000;
+    --ink-2: #ffdfdc;
+}
+*{ 
+    box-sizing:border-box;
+    padding: 0;
+}
+
+body{
+    margin: 0; 
+    font-family: system-ui,-apple-system,Segoe UI,Inter,Roboto,sans-serif;
+    background: var(--bg-color);
+    color:var(--ink);
+}
+.container{ 
+    max-width:980px; 
+    margin:auto; 
+    padding:clamp(1rem,3vw,2rem); 
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+h1{ 
+    margin:0 0 .75rem 0; 
+}
+
+.player{
+    background: linear-gradient(180deg, var(--panel) 0, var(--panel-2) 100%);
+    border:1px solid var(--border); 
+    border-radius:16px; 
+    padding:clamp(.8rem,2.5vw,1.25rem);
+    box-shadow:0 16px 50px rgba(0,0,0,.45);
+}
+video{
+    width:100%; 
+    display:block; 
+    background:#000; 
+    border-radius:14px;
+    aspect-ratio:16/9; 
+    object-fit:cover;
+}
+.controls{
+    display:grid; 
+    gap:.55rem; 
+    align-items:center; 
+    margin-top:.9rem;
+    grid-template-columns: auto auto auto auto 1fr auto auto auto auto auto;
+    grid-template-areas: "play pause back fwd time speed volume cc pip fs"
+    "seek seek seek seek seek seek seek seek seek seek";
+}
+
+#play{grid-area:play} #pause{grid-area:pause} #back10{grid-area:back} #fwd10{grid-area:fwd}
+#seek{grid-area:seek} #time{grid-area:time} #speed{grid-area:speed} #volume{grid-area:volume}
+#cc{grid-area:cc} #pip{grid-area:pip} #fs{grid-area:fs}
+
+.btn, select, input[type=range]{ 
+    background: var(--buttons); 
+    border:1px solid var(--border);
+    color:var(--ink); 
+    padding:.4rem .6rem; 
+    border-radius:10px; 
+    min-height:42px; 
+    cursor:pointer; 
+}
+.btn:hover, select:hover{ 
+    background:var(--accent); 
+    color:#0f172a; 
+}
+.btn:focus, select:focus, input[type=range]:focus{ 
+    outline:2px solid var(--accent); 
+    outline-offset:2px;
+}
+#time{ 
+    color:var(--ink-2); 
+    font-variant-numeric: tabular-nums; 
+}
+video::cue{ 
+    background:rgba(0,0,0,.6); 
+    color:#fff; 
+    font-size:1rem; 
+}
+
+/*RWD*/
+@media (max-width:900px){
+    .controls{
+        grid-template-columns: auto auto auto auto auto auto;
+        grid-template-areas:
+        "play pause back fwd cc fs"
+        "seek seek seek seek seek seek"
+        "time speed volume pip pip pip";
+    }
+}
+
+@media (max-width:640px){
+    .controls{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+        "play pause cc"
+        "back fwd fs"
+        "seek seek seek"
+        "time speed volume"
+        "pip pip pip";
+        gap:.6rem;
+    }
+    .btn, select, input[type=range]{ 
+        min-height:46px; 
+    }
+    #time{ 
+        text-align:center; 
+        font-size:.95rem;
+    }
+}
+
+@media (max-width:380px){
+    video::cue{ 
+        font-size:.9rem; 
+    }
+    .btn, select, input[type=range]{ 
+        min-height:44px; 
+        font-size:.95rem; 
+    }
+}
